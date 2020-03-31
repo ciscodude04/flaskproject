@@ -1,14 +1,33 @@
 #newsapi
 #faa8105f64af4697bddf1d6e0297857e
 from newsapi import NewsApiClient
-import json
+import json, os
 
-news = NewsApiClient(api_key='faa8105f64af4697bddf1d6e0297857e')
+password = os.environ.get('newsAPI_password')
 
+newsapi = NewsApiClient(password)
 #top_headlines = news.get_top_headlines(q='python', language='en')
 
 #print(json.dumps(top_headlines, indent=4, sort_keys=True))
 
+def getSources():
+    sources = newsapi.get_sources(country='us', language='en')
+    length = len(sources["sources"])
+    for i in range(0, length):
+        id = sources["sources"][i]["id"]
+        print(f'{id}')
 
-allheadlines = news.get_everything(q='python', language='en', page_size=2)
-print(json.dumps(allheadlines, indent=4, sort_keys=True))
+def all_headlines():
+    allheadlines = newsapi.get_everything(q='cor', language='en' , page=1 )
+    length = allheadlines["totalResults"]
+    for i in range(0, 19):
+        description = allheadlines["articles"][i]["description"]
+        publication = allheadlines["articles"][i]["publishedAt"]
+        title = allheadlines["articles"][i]["title"]        
+        print(f'''
+        Title: {title}
+        Publication Date: {publication}
+        Description: {description}
+        ''')
+
+all_headlines()
