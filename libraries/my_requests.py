@@ -6,9 +6,13 @@ import json, os
 password = os.environ.get('newsAPI_password')
 
 newsapi = NewsApiClient(password)
-#top_headlines = news.get_top_headlines(q='python', language='en')
+
 
 #print(json.dumps(top_headlines, indent=4, sort_keys=True))
+
+def gettopheadlines():
+    #top_headlines = news.get_top_headlines(q='python', language='en')
+    pass
 
 def getSources():
     sources = newsapi.get_sources(country='us', language='en')
@@ -30,4 +34,3 @@ def all_headlines():
         Description: {description}
         ''')
 
-all_headlines()
